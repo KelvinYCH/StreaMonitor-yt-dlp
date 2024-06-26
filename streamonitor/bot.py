@@ -22,10 +22,11 @@ class Bot(Thread):
     aliases = []
     ratelimit = False
 
-    sleep_on_offline = 2
+    sleep_on_offline = 60  # Updated to 60 seconds
     sleep_on_long_offline = 300
-    sleep_on_error = 20
+    sleep_on_error = 180
     sleep_on_ratelimit = 180
+    sleep_on_private = 180  # New sleep duration for private status
     long_offline_timeout = 600
 
     headers = {
@@ -158,6 +159,10 @@ class Bot(Thread):
                                 self.log(self.status())
                                 self._sleep(self.sleep_on_error)
                                 continue
+                        elif self.sc == self.Status.PRIVATE:
+                            self.sc = self.Status.PRIVATE
+                            self.log(self.status())
+                            self._sleep(self.sleep_on_private)
                 except Exception as e:
                     self.logger.exception(e)
                     self.log(self.status())
