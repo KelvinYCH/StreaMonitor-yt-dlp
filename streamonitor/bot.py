@@ -11,7 +11,7 @@ import requests.cookies
 
 import streamonitor.log as log
 from parameters import DOWNLOADS_DIR, DEBUG, WANTED_RESOLUTION, WANTED_RESOLUTION_PREFERENCE
-from streamonitor.downloaders.ffmpeg import getVideoFfmpeg
+from streamonitor.downloaders.yt_dlp import getVideoYtDlp
 
 
 class Bot(Thread):
@@ -68,7 +68,7 @@ class Bot(Thread):
         self.running = False
         self.quitting = False
         self.sc = self.Status.NOTRUNNING  # Status code
-        self.getVideo = getVideoFfmpeg
+        self.getVideo = getVideoYtDlp
         self.stopDownload = None
 
     def getLogger(self):
@@ -161,7 +161,6 @@ class Bot(Thread):
                                 continue
                         elif self.sc == self.Status.PRIVATE:
                             self.sc = self.Status.PRIVATE
-                            self.log(self.status())
                             self._sleep(self.sleep_on_private)
                 except Exception as e:
                     self.logger.exception(e)

@@ -11,7 +11,8 @@ class StripChat(Bot):
         self.vr = False
 
     def getVideoUrl(self):
-        return self.getWantedResolutionPlaylist(None)
+        #return self.getWantedResolutionPlaylist(None)
+        return 'https://stripchat.com/' + self.username
 
     def getPlaylistVariants(self, url):
         def formatUrl(master, auto):
